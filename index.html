@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Text Preview Demo</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .preview-box {
+    width: 400px;
+    height: 150px;
+    background: #e0e0e0;
+    border: 2px solid #333;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Impact', sans-serif;
+    font-size: 42px;
+    color: #111;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  input {
+    padding: 10px 15px;
+    font-size: 18px;
+    width: 300px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    text-align: center;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0078ff;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #005ecc;
+  }
+</style>
+</head>
+<body>
+
+<h2>Custom Product Text Preview</h2>
+
+<div class="preview-box" id="preview">YOUR TEXT</div>
+
+<input type="text" id="userInput" maxlength="15" placeholder="Type your custom text">
+
+<button id="saveBtn">Save Preview</button>
+
+<!-- html2canvas library (free, open-source) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const input = document.getElementById('userInput');
+const preview = document.getElementById('preview');
+const saveBtn = document.getElementById('saveBtn');
+
+// Live update text
+input.addEventListener('input', () => {
+  const text = input.value.trim() || 'YOUR TEXT';
+  preview.textContent = text.toUpperCase();
+});
+
+// Save preview as image
+saveBtn.addEventListener('click', () => {
+  html2canvas(preview).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'custom-preview.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+});
+</script>
+
+</body>
+</html>
